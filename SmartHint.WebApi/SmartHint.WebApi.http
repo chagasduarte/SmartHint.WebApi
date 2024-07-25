@@ -1,0 +1,6 @@
+@SmartHint.WebApi_HostAddress = http://localhost:5018
+
+GET {{SmartHint.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
