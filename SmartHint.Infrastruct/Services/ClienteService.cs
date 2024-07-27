@@ -2,11 +2,12 @@
 using SmartHint.Domain.DTos;
 using SmartHint.Domain.Interfaces;
 using SmartHint.Domain.Models;
-using SmartHint.Infrastruct.Context;
+using SmartHint.Domain.Context;
 using SmartHint.Infrastruct.Helpers;
 using System.Dynamic;
 using System.Net;
 using System.Numerics;
+using SmartHint.Domain.Validations;
 
 namespace SmartHint.Infrastruct.Services
 {
@@ -54,17 +55,12 @@ namespace SmartHint.Infrastruct.Services
 
             return response;
         }
-        []
+
         public async Task<ResponseGeneric<Cliente>> PostCliente(Cliente cliente)
         {
             ResponseGeneric<Cliente> response = new ResponseGeneric<Cliente>();
             try
             {
-                if(_context.Clientes.Where(x => x.CpfCnpj == cliente.CpfCnpj).Count() >= 1)
-                {
-                    response.StatusCode=HttpStatusCode.BadRequest;
-                    response.MessageError = "O valor registrado para CPF/CNPJ já está em uso";
-                }
                 _context.Clientes.Add(cliente);
                 await _context.SaveChangesAsync();
                 response.StatusCode = HttpStatusCode.OK;

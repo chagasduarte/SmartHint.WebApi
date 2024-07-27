@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartHint.Infrastruct.Context;
+using SmartHint.Domain.Context;
 
 #nullable disable
 
-namespace SmartHint.Infrastruct.Migrations
+namespace SmartHint.Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
+using SmartHint.Domain.Context;
 using SmartHint.Domain.Interfaces;
-using SmartHint.Infrastruct.Context;
+using SmartHint.Domain.Validations.Handles;
 using SmartHint.Infrastruct.Services;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +14,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddTransient<IClienteService, ClienteService>();
+builder.Services.AddTransient<IHandler, AbstractHandler>();
+builder.Services.AddTransient<IEmailInUseHandler, EmailInUseHandler>();
+builder.Services.AddTransient<IChainOfResponsibility, ChainOfResponsibility>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

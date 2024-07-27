@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartHint.Domain.DTos;
 using SmartHint.Domain.Interfaces;
 using SmartHint.Domain.Models;
-using SmartHint.WebApi.Extensions;
 using System.Net;
 
 namespace SmartHint.WebApi.Controllers
@@ -20,7 +18,6 @@ namespace SmartHint.WebApi.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> GetClientes([FromQuery] PaginationParams pagination)
         {
          

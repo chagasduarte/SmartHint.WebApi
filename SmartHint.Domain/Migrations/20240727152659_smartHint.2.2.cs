@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace SmartHint.Infrastruct.Migrations
+namespace SmartHint.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class smartHint10 : Migration
+    public partial class smartHint22 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +26,8 @@ namespace SmartHint.Infrastruct.Migrations
                     Telefone = table.Column<string>(type: "longtext", nullable: false),
                     TipoPessoa = table.Column<int>(type: "int", nullable: false),
                     CpfCnpj = table.Column<string>(type: "longtext", nullable: false),
-                    InscricaoEstadual = table.Column<string>(type: "longtext", nullable: false)
+                    InscricaoEstadual = table.Column<string>(type: "longtext", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
