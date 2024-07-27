@@ -8,5 +8,6 @@ namespace SmartHint.Domain.DTos
         public HttpStatusCode StatusCode { get; set; }
         public T? ReturnData { get; set; }
         public ExpandoObject? ReturnError { get; set; }
+        public string MessageError { get; set; }
     }
 }

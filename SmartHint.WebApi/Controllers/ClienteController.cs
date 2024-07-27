@@ -20,6 +20,7 @@ namespace SmartHint.WebApi.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> GetClientes([FromQuery] PaginationParams pagination)
         {
          
@@ -32,7 +33,6 @@ namespace SmartHint.WebApi.Controllers
                                                clientPageLis.ReturnData.TotalCount);
             if (clientPageLis.StatusCode == HttpStatusCode.OK)
             {
-                Response.AddPaginationHeader(new PaginationHeader(pagination.PageNumber, pagination.PageSize, clientPageLis.ReturnData.TotalCount, clientPageLis.ReturnData.TotalPage));
                 return Ok(response);
             }
             else

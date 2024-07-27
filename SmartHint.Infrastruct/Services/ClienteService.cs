@@ -54,12 +54,17 @@ namespace SmartHint.Infrastruct.Services
 
             return response;
         }
-
+        []
         public async Task<ResponseGeneric<Cliente>> PostCliente(Cliente cliente)
         {
             ResponseGeneric<Cliente> response = new ResponseGeneric<Cliente>();
             try
             {
+                if(_context.Clientes.Where(x => x.CpfCnpj == cliente.CpfCnpj).Count() >= 1)
+                {
+                    response.StatusCode=HttpStatusCode.BadRequest;
+                    response.MessageError = "O valor registrado para CPF/CNPJ já está em uso";
+                }
                 _context.Clientes.Add(cliente);
                 await _context.SaveChangesAsync();
                 response.StatusCode = HttpStatusCode.OK;
