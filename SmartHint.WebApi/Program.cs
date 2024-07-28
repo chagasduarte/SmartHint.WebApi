@@ -5,6 +5,10 @@ using SmartHint.Domain.Validations.Handles;
 using SmartHint.Infrastruct.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var configurationBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+IConfigurationRoot configuration = configurationBuilder.Build();
 
 // Add services to the container.
 
@@ -13,7 +17,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<AppDbContext>(opt => 
+    opt.UseMySQL(configuration.GetConnectionString("MySql")));
+
 builder.Services.AddTransient<IClienteService, ClienteService>();
 builder.Services.AddTransient<IHandler, AbstractHandler>();
 
