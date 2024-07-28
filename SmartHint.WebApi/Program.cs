@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(opt => 
-    opt.UseMySql(configuration.GetConnectionStrng("MySql")));
+    opt.UseMySQL(configuration.GetConnectionString("MySql")));
 
 builder.Services.AddTransient<IClienteService, ClienteService>();
 var app = builder.Build();
