@@ -8,6 +8,7 @@ using System.Dynamic;
 using System.Net;
 using System.Numerics;
 using SmartHint.Domain.Validations;
+using SmartHint.Domain.Validations.Handles;
 
 namespace SmartHint.Infrastruct.Services
 {
@@ -29,7 +30,7 @@ namespace SmartHint.Infrastruct.Services
                 response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumer, pageSize);
                 response.StatusCode = HttpStatusCode.OK;
             }
-            catch
+            catch(Exception ex)
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
                 response.ReturnError = new ExpandoObject();
@@ -56,6 +57,7 @@ namespace SmartHint.Infrastruct.Services
             return response;
         }
 
+        [ClienteValido]
         public async Task<ResponseGeneric<Cliente>> PostCliente(Cliente cliente)
         {
             ResponseGeneric<Cliente> response = new ResponseGeneric<Cliente>();

@@ -5,16 +5,15 @@ using SmartHint.Domain.Models;
 
 namespace SmartHint.Domain.Context
 {
-    public class AppDbContext : DbContext, IAppDbContext
+    public class AppDbContext : DbContext
     {
-        private IConfiguration _configuration;
-        public AppDbContext(IConfiguration configuration, DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext() { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL(_configuration.GetConnectionString("MySql"));
+            optionsBuilder.UseMySQL("Server=monorail.proxy.rlwy.net;Port=22939;Database=SmartHint;User=root;Password=dvHhYNAZMuiEystkOboDLSDRoyaUaVMk");
         }
         public DbSet<Cliente> Clientes { get; set; }
     }

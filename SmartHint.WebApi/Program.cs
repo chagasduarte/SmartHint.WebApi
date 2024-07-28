@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SmartHint.Domain.Context;
 using SmartHint.Domain.Interfaces;
 using SmartHint.Domain.Validations.Handles;
@@ -15,8 +16,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddTransient<IClienteService, ClienteService>();
 builder.Services.AddTransient<IHandler, AbstractHandler>();
-builder.Services.AddTransient<IEmailInUseHandler, EmailInUseHandler>();
-builder.Services.AddTransient<IChainOfResponsibility, ChainOfResponsibility>();
 
 var app = builder.Build();
 

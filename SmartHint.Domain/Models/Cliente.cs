@@ -2,7 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartHint.Domain.Models
-{ 
+{
+    [ClienteValido]
     public class Cliente
     {
         [Key]
