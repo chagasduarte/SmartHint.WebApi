@@ -56,8 +56,6 @@ namespace SmartHint.Infrastruct.Services
 
             return response;
         }
-
-        [ClienteValido]
         public async Task<ResponseGeneric<Cliente>> PostCliente(Cliente cliente)
         {
             ResponseGeneric<Cliente> response = new ResponseGeneric<Cliente>();

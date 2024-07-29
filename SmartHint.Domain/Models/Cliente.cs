@@ -9,39 +9,42 @@ namespace SmartHint.Domain.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nome obrigatório")]
+        [StringLength(150)]
         public string Nome { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Email obrigatório")]
         [EmailAddress(ErrorMessage = "Email inválido")]
         [StringLength(150)]
         public string Email { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Telefone Obrigatório")]
         [StringLength(11)]
         public string Telefone { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Tipo Pessoa Obrigatório")]
         public TipoPessoa TipoPessoa { get; set; }
        
-        [Required]
+        [Required(ErrorMessage = "CpfCnpj Obrigatório")]
         [StringLength(14)]
         public string CpfCnpj { get; set; } = "";
 
-        [Required]
+        [StringLength(12)]
         public string InscricaoEstadual { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Data Cadastro Obrigatória")]
         [DataType(DataType.Date)]
         public DateTime DataCadastro { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Senha obrigatória")]
         [StringLength(15)]
         public string Senha { get; set; }
 
         public OrientacaoSexual? Sexo { get; set; }
 
         [DataType(DataType.Date)]
-        public DateOnly? DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
+
+        public Boolean InscricaoEstadualPessoaFisica { get; set; }
         
         public Cliente() 
         { 

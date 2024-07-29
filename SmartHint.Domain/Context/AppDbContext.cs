@@ -11,6 +11,10 @@ namespace SmartHint.Domain.Context
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySQL("Server=monorail.proxy.rlwy.net;Port=14971;Database=SmartHint;User=root;Password=bEmyqoJpZalYgBHhXNUyzHOZBWeUUPHK");
+        }
         public DbSet<Cliente> Clientes { get; set; }
     }
 }

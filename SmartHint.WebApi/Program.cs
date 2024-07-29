@@ -5,6 +5,7 @@ using SmartHint.Domain.Validations.Handles;
 using SmartHint.Infrastruct.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);

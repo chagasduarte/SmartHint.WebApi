@@ -10,10 +10,17 @@ namespace SmartHint.Domain.Validations
         EmailInUseHandler emailInUseHandler = new EmailInUseHandler();
         CpfCnjInUseHandler cpfCnjInUseHandler = new CpfCnjInUseHandler();
         CamposPessoaFisicaHandler camposPessoaFisicaHandler = new CamposPessoaFisicaHandler();
+        InscricaoEstadualObrigatorioPjHandler inscricaoEstadualPjHandler = new InscricaoEstadualObrigatorioPjHandler();
+        InscricaoEstadualObrigatorioPfHandler inscricaoEstadualPfHandler = new InscricaoEstadualObrigatorioPfHandler();
+        InscricaoEstadualInUseHandler inscricaoEstadualInUse = new InscricaoEstadualInUseHandler();
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             emailInUseHandler.SetNext(cpfCnjInUseHandler)
-                             .SetNext(camposPessoaFisicaHandler);
+                             .SetNext(camposPessoaFisicaHandler)
+                             .SetNext(inscricaoEstadualPjHandler)
+                             .SetNext(inscricaoEstadualPfHandler)
+                             .SetNext(inscricaoEstadualInUse);
 
             var validacao = new ChainOfResponsibility(emailInUseHandler).Validation((Cliente)value);
             return validacao.IsError
