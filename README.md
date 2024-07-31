@@ -45,7 +45,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
    - Adicione um serviço MySQL ao seu projeto e anote a URL de conexão e as credenciais (host, usuário, senha e nome do banco de dados).
 
 2. **Configuração no Projeto**:
-   - Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis (substitua os valores pelos da sua instância Railway):
+   - adicione os valores abaixo na string de conexão:
 
      ```env
      DB_HOST=host_da_instancia_railway
@@ -67,24 +67,25 @@ Certifique-se de ter as seguintes ferramentas instaladas:
     ```bash
     dotnet add package <PACAGE_NAME>
     ```
+3. Configure as variáveis de ambiente conforme instruído na seção [Configuração do Banco de Dados](#configuração-do-banco-de-dados).
 
-3. Configurar DbContext
+4. Configurar DbContext
 
     ```bash
     dotnet ef migrations add 'MigrationName' -s SmartHint.WebApi -p SmartHint.Domain -c AppDbContext
     ```
-#### O comando -s indica o projeto que inicializa, -p indica o projeto onde se encontra o arquivo dbContext e -c indica qual o nome do contexto, para caso haje mais de um.
+O comando -s indica o projeto que inicializa, -p indica o projeto onde se encontra o arquivo dbContext e -c indica qual o nome do contexto, para caso haje mais de um.
 
-4. Atualizar banco de dados
+5. Atualizar banco de dados
    ```bash
    dotnet ef database update --verbose --project SmartHint.Domain --startup-project SmartHint.WebApi
    ```
 
-4. Configure as variáveis de ambiente conforme instruído na seção [Configuração do Banco de Dados](#configuração-do-banco-de-dados).
 
 ## Uso
 
 Inicie o servidor:
 
 ```bash
-npm start
+dotnet run
+````
