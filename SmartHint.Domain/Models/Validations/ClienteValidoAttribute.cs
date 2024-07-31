@@ -13,17 +13,25 @@ namespace SmartHint.Domain.Validations
         InscricaoEstadualObrigatorioPjHandler inscricaoEstadualPjHandler = new InscricaoEstadualObrigatorioPjHandler();
         InscricaoEstadualObrigatorioPfHandler inscricaoEstadualPfHandler = new InscricaoEstadualObrigatorioPfHandler();
         InscricaoEstadualInUseHandler inscricaoEstadualInUse = new InscricaoEstadualInUseHandler();
+        ValidaTelefoneHandler telefone = new ValidaTelefoneHandler();
+        ValidaCpfCnpjNumericoHandler cpfCnjValido = new ValidaCpfCnpjNumericoHandler();
+        InscricaoEstadualNumericaHandler inscricaoEstadualNumerica = new InscricaoEstadualNumericaHandler();
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            Cliente cliente = value as Cliente;
+            
             emailInUseHandler.SetNext(cpfCnjInUseHandler)
-                             .SetNext(camposPessoaFisicaHandler)
-                             .SetNext(inscricaoEstadualPjHandler)
-                             .SetNext(inscricaoEstadualPfHandler)
-                             .SetNext(inscricaoEstadualInUse);
+                    .SetNext(cpfCnjValido)
+                    .SetNext(camposPessoaFisicaHandler)
+                    .SetNext(inscricaoEstadualPjHandler)
+                    .SetNext(inscricaoEstadualPfHandler)
+                    .SetNext(inscricaoEstadualInUse)
+                    .SetNext(inscricaoEstadualNumerica)
+                    .SetNext(telefone);
 
             var validacao = new ChainOfResponsibility(emailInUseHandler).Validation((Cliente)value);
-            return validacao.IsError
+            return validacao.IsError && cliente.Id == 0
                 ? new ValidationResult(errorMessage: validacao.MessageError)
                 : ValidationResult.Success;
         }

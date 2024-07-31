@@ -19,9 +19,9 @@ namespace SmartHint.Domain.Models.Validations.Handles
                     model.IsError = true;
                     return model;
                 }
-                if(request.Sexo is null)
+                if(request.Genero is null)
                 {
-                    model.MessageError = "O campo orientação sexual é obrigatório";
+                    model.MessageError = "O campo Genero é obrigatório";
                     model.IsError = true;
                     return model;
                 }

@@ -1,6 +1,6 @@
 ﻿namespace SmartHint.Domain.Models
 {
-    public enum OrientacaoSexual
+    public enum Genero
     {
         Feminino = 1,
         Masculino = 2,

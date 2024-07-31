@@ -31,20 +31,25 @@ namespace SmartHint.Domain.Models
 
         [StringLength(12)]
         public string InscricaoEstadual { get; set; } = "";
+        [Required]
+        public bool Isento { get; set; }
 
         [Required(ErrorMessage = "Data Cadastro Obrigatória")]
         [DataType(DataType.Date)]
         public DateTime DataCadastro { get; set; }
+
         [Required(ErrorMessage ="Senha obrigatória")]
-        [StringLength(15)]
+        [MaxLength(15)]
+        [MinLength(8)]
         public string Senha { get; set; }
 
-        public OrientacaoSexual? Sexo { get; set; }
+        public Genero? Genero { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? DataNascimento { get; set; }
 
-        public Boolean InscricaoEstadualPessoaFisica { get; set; }
+        [Required]
+        public Boolean Bloqueado { get; set; }
         
         public Cliente() 
         { 

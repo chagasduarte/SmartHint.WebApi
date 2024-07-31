@@ -20,14 +20,14 @@ namespace SmartHint.Infrastruct.Services
             _context = context;
         }
 
-        public async Task<ResponseGeneric<PagedList<Cliente>>> GetClientes(int pageNumer, int pageSize)
+        public async Task<ResponseGeneric<PagedList<Cliente>>> GetClientes(int pageNumber, int pageSize)
         {
             ResponseGeneric<PagedList<Cliente>> response = new ResponseGeneric<PagedList<Cliente>>();
 
             try
             {
                 var query = _context.Clientes.AsQueryable();
-                response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumer, pageSize);
+                response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
                 response.StatusCode = HttpStatusCode.OK;
             }
             catch(Exception ex)
@@ -126,12 +126,29 @@ namespace SmartHint.Infrastruct.Services
 
             return response;
         }
+        public async Task<ResponseGeneric<PagedList<Cliente>>> GetByNameClientes(string name, int pageNumber, int pageSize)
+        {
+            ResponseGeneric<PagedList<Cliente>> response = new ResponseGeneric<PagedList<Cliente>>();
 
+            try
+            {
+                var query = _context.Clientes.Where(x => x.Nome.Contains(name));
+                response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
+                response.StatusCode = HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.ReturnError = new ExpandoObject();
+            }
+
+            return response;
+        }
         private bool ClienteExist(int id)
         {
             return _context.Clientes.Any(e => e.Id == id);
         }
 
-
+       
     }
 }

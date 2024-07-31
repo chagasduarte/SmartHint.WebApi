@@ -14,7 +14,7 @@ namespace SmartHint.Domain.Validations.Handles
 
             if (_appDbContext.Clientes.Where(x => x.Email == request.Email).Count() > 0)
             {
-                model.MessageError = "O Email já está em uso.";
+                model.MessageError = "O Email já está vinculado a outro Comprador.";
                 model.IsError = true;
                 return model;
             }

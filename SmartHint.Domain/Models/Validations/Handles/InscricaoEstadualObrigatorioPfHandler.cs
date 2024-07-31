@@ -11,7 +11,7 @@ namespace SmartHint.Domain.Models.Validations.Handles
         {
             ValidationModel model = new ValidationModel();
 
-            if (request.InscricaoEstadualPessoaFisica && request.InscricaoEstadual is null)
+            if (!request.Isento && request.InscricaoEstadual is null)
             {
                 model.MessageError = "O campo Inscrição Estadual é Obrigatório para essa Pessoa Fisica";
                 model.IsError = true;
