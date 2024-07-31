@@ -1,4 +1,5 @@
 ﻿using SmartHint.Domain.Models;
+using SmartHint.Domain.Models.Validations.Handles;
 
 namespace SmartHint.Domain.Validations.Handles
 {

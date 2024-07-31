@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartHint.Domain.Context;
 using SmartHint.Domain.Interfaces;
-using SmartHint.Domain.Validations.Handles;
+using SmartHint.Domain.Models.Validations.Handles;
 using SmartHint.Infrastruct.Services;
 
 var builder = WebApplication.CreateBuilder(args);
