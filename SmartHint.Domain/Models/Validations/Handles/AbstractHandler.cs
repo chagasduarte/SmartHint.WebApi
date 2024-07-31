@@ -1,7 +1,7 @@
 ﻿using SmartHint.Domain.Context;
 using SmartHint.Domain.Models;
 
-namespace SmartHint.Domain.Validations.Handles
+namespace SmartHint.Domain.Models.Validations.Handles
 {
     public class AbstractHandler : IHandler
     {
