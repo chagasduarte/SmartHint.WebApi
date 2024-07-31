@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartHint.Infrastruct.Context;
+using SmartHint.Domain.Context;
 
 #nullable disable
 
-namespace SmartHint.Infrastruct.Migrations
+namespace SmartHint.Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -25,28 +25,50 @@ namespace SmartHint.Infrastruct.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Bloqueado")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("CpfCnpj")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime?>("DataNascimento")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int?>("Genero")
+                        .HasColumnType("int");
 
                     b.Property<string>("InscricaoEstadual")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(12)
+                        .HasColumnType("varchar(12)");
+
+                    b.Property<bool>("Isento")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<int>("TipoPessoa")
                         .HasColumnType("int");

@@ -2,11 +2,13 @@
 using SmartHint.Domain.DTos;
 using SmartHint.Domain.Interfaces;
 using SmartHint.Domain.Models;
-using SmartHint.Infrastruct.Context;
+using SmartHint.Domain.Context;
 using SmartHint.Infrastruct.Helpers;
 using System.Dynamic;
 using System.Net;
 using System.Numerics;
+using SmartHint.Domain.Validations;
+using SmartHint.Domain.Validations.Handles;
 
 namespace SmartHint.Infrastruct.Services
 {
@@ -18,17 +20,17 @@ namespace SmartHint.Infrastruct.Services
             _context = context;
         }
 
-        public async Task<ResponseGeneric<PagedList<Cliente>>> GetClientes(int pageNumer, int pageSize)
+        public async Task<ResponseGeneric<PagedList<Cliente>>> GetClientes(int pageNumber, int pageSize)
         {
             ResponseGeneric<PagedList<Cliente>> response = new ResponseGeneric<PagedList<Cliente>>();
 
             try
             {
                 var query = _context.Clientes.AsQueryable();
-                response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumer, pageSize);
+                response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
                 response.StatusCode = HttpStatusCode.OK;
             }
-            catch
+            catch(Exception ex)
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
                 response.ReturnError = new ExpandoObject();
@@ -54,17 +56,11 @@ namespace SmartHint.Infrastruct.Services
 
             return response;
         }
-        []
         public async Task<ResponseGeneric<Cliente>> PostCliente(Cliente cliente)
         {
             ResponseGeneric<Cliente> response = new ResponseGeneric<Cliente>();
             try
             {
-                if(_context.Clientes.Where(x => x.CpfCnpj == cliente.CpfCnpj).Count() >= 1)
-                {
-                    response.StatusCode=HttpStatusCode.BadRequest;
-                    response.MessageError = "O valor registrado para CPF/CNPJ já está em uso";
-                }
                 _context.Clientes.Add(cliente);
                 await _context.SaveChangesAsync();
                 response.StatusCode = HttpStatusCode.OK;
@@ -130,12 +126,29 @@ namespace SmartHint.Infrastruct.Services
 
             return response;
         }
+        public async Task<ResponseGeneric<PagedList<Cliente>>> GetByNameClientes(string name, int pageNumber, int pageSize)
+        {
+            ResponseGeneric<PagedList<Cliente>> response = new ResponseGeneric<PagedList<Cliente>>();
 
+            try
+            {
+                var query = _context.Clientes.Where(x => x.Nome.Contains(name));
+                response.ReturnData = await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
+                response.StatusCode = HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.ReturnError = new ExpandoObject();
+            }
+
+            return response;
+        }
         private bool ClienteExist(int id)
         {
             return _context.Clientes.Any(e => e.Id == id);
         }
 
-
+       
     }
 }

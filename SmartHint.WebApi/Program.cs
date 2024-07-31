@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using SmartHint.Domain.Context;
 using SmartHint.Domain.Interfaces;
-using SmartHint.Infrastruct.Context;
+using SmartHint.Domain.Validations.Handles;
 using SmartHint.Infrastruct.Services;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
@@ -21,6 +22,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseMySQL(configuration.GetConnectionString("MySql")));
 
 builder.Services.AddTransient<IClienteService, ClienteService>();
+builder.Services.AddTransient<IHandler, AbstractHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

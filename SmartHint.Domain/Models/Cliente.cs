@@ -1,27 +1,55 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SmartHint.Domain.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartHint.Domain.Models
 {
+    [ClienteValido]
     public class Cliente
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        
+
+        [Required(ErrorMessage = "Nome obrigatório")]
+        [StringLength(150)]
         public string Nome { get; set; } = "";
-        [Required]
+
+        [Required(ErrorMessage = "Email obrigatório")]
         [EmailAddress(ErrorMessage = "Email inválido")]
+        [StringLength(150)]
         public string Email { get; set; } = "";
-        [Required]
+
+        [Required(ErrorMessage = "Telefone Obrigatório")]
+        [StringLength(11)]
         public string Telefone { get; set; } = "";
-        [Required]
+
+        [Required(ErrorMessage = "Tipo Pessoa Obrigatório")]
         public TipoPessoa TipoPessoa { get; set; }
-        [Required]
+       
+        [Required(ErrorMessage = "CpfCnpj Obrigatório")]
+        [StringLength(14)]
         public string CpfCnpj { get; set; } = "";
-        [Required]
+
+        [StringLength(12)]
         public string InscricaoEstadual { get; set; } = "";
         [Required]
+        public bool Isento { get; set; }
+
+        [Required(ErrorMessage = "Data Cadastro Obrigatória")]
+        [DataType(DataType.Date)]
         public DateTime DataCadastro { get; set; }
+
+        [Required(ErrorMessage ="Senha obrigatória")]
+        [MaxLength(15)]
+        [MinLength(8)]
+        public string Senha { get; set; }
+
+        public Genero? Genero { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? DataNascimento { get; set; }
+
+        [Required]
+        public Boolean Bloqueado { get; set; }
         
         public Cliente() 
         { 

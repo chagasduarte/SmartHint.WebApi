@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartHint.Domain.DTos;
 using SmartHint.Domain.Interfaces;
 using SmartHint.Domain.Models;
-using SmartHint.WebApi.Extensions;
+using SmartHint.Domain.Validations;
 using System.Net;
 
 namespace SmartHint.WebApi.Controllers
@@ -20,7 +19,6 @@ namespace SmartHint.WebApi.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> GetClientes([FromQuery] PaginationParams pagination)
         {
          
@@ -54,8 +52,29 @@ namespace SmartHint.WebApi.Controllers
                 return StatusCode((int)response.StatusCode, response.ReturnError);
             }
         }
+        [HttpGet("ByName")]
+        public async Task<ActionResult> GetByNameCliente([FromQuery] string name, int pageNumber, int pageSize)
+        {
+            var clientesByName = await _clienteService.GetByNameClientes(name, pageNumber, pageSize);
+
+            var response = new ClienteResponse(clientesByName.ReturnData,
+                                               clientesByName.ReturnData.CurrentPage,
+                                               clientesByName.ReturnData.TotalPage,
+                                               clientesByName.ReturnData.PageSize,
+                                               clientesByName.ReturnData.TotalCount);
+
+            if (clientesByName.StatusCode == HttpStatusCode.OK)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return StatusCode((int)clientesByName.StatusCode, clientesByName.ReturnError);
+            }
+        }
 
         [HttpPost]
+        [ClienteValido]
         public async Task<ActionResult> PostClientes(Cliente cliente)
         {
             var response = await _clienteService.PostCliente(cliente);
