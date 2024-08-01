@@ -11,7 +11,7 @@ namespace SmartHint.Domain.Models.Validations.Handles
 
             if (!request.Isento)
             {
-                if (!Regex.IsMatch("[0-9]", request.InscricaoEstadual))
+                if (!Regex.IsMatch(request.InscricaoEstadual, "^[0-9]"))
                 {
                     model.MessageError = "Essa Inscrição Estadual não está em um formato Válido";
                     model.IsError = true;

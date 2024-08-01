@@ -17,6 +17,7 @@ namespace SmartHint.Domain.Models.Validations.Handles
             }
             else
             {
+                model.IsError = false;
                 return base.Handle(request);
             }
         }
