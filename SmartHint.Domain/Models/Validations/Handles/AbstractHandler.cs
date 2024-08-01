@@ -21,7 +21,7 @@ namespace SmartHint.Domain.Models.Validations.Handles
             }
             else
             {
-                return new ValidationModel(true);
+                return new ValidationModel(false);
             }
         }
     }
