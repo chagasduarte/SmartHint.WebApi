@@ -12,7 +12,7 @@ namespace SmartHint.Domain.Models.Validations.Handles
         {
             ValidationModel model = new ValidationModel();
 
-            if (_appDbContext.Clientes.Where(x => x.InscricaoEstadual == request.InscricaoEstadual).Count() > 0)
+            if (!request.Isento && _appDbContext.Clientes.Where(x => x.InscricaoEstadual == request.InscricaoEstadual).Count() > 0)
             {
                 model.MessageError = "Essa Inscrição Estadual já está vinculada à outro Comprador";
                 model.IsError = true;

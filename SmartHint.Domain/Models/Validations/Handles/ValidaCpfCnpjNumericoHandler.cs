@@ -9,8 +9,8 @@ namespace SmartHint.Domain.Models.Validations.Handles
         {
             ValidationModel model = new ValidationModel();
 
-
-            if (!Regex.IsMatch(request.CpfCnpj, "^[0-9]{11}") &&
+            if (!request.Isento &&
+                !Regex.IsMatch(request.CpfCnpj, "^[0-9]{11}") &&
                 !Regex.IsMatch(request.CpfCnpj, "^[0-9]{14}"))
             {
                 model.MessageError = "O CPF/CNPJ não é válido";
